@@ -7,7 +7,7 @@ services:
     volumes:
       - ./app:/app 
     ports:
-     - 6000:80
+     - 2000:80
     networks:
       - dev
 
@@ -24,7 +24,7 @@ services:
   phpmyadmin:
     image: phpmyadmin
     ports:
-      - 6060:80
+      - 2020:80
     environment:
       PMA_HOST: db
     networks:

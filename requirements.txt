@@ -6,4 +6,3 @@ pydantic
 pandas
 requests
 BeautifulSoup4
-csv
