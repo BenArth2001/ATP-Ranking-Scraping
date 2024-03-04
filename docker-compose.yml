@@ -1,0 +1,37 @@
+version: "3"
+services:
+  fastapi:
+    build:
+      context: .
+    container_name: ScrapingAPI
+    volumes:
+      - ./app:/app 
+    ports:
+     - 6000:80
+    networks:
+      - dev
+
+  db:
+    image: mysql
+    volumes:
+      - db-data:/var/lib/mysql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_DATABASE: 'ScrapingDB'
+    networks:
+      - dev
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - 6060:80
+    environment:
+      PMA_HOST: db
+    networks:
+      - dev
+
+networks:
+  dev:
+
+volumes:
+  db-data:

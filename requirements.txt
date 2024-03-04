@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+sqlalchemy
+mysqlclient
+pydantic
+pandas
+requests
+BeautifulSoup4
+csv
