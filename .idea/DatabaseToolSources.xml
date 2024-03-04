@@ -4,7 +4,7 @@
     <data-source name="localhost" uuid="fffe826e-5b02-4a9f-aa34-8569461bd5a1" type="MYSQL">
       <base-info connect-type="DB_DEFAULT" />
       <user-name>root</user-name>
-      <url>jdbc:mysql://localhost:3306/motus?useSSL=false&amp;serverTimezone=Europe/Paris?useSSL=false&amp;serverTimezone=Europe/Paris?useSSL=false&amp;serverTimezone=Europe/Paris?useSSL=false&amp;serverTimezone=Europe/Paris</url>
+      <url>jdbc:mysql://localhost:3306/motus?useSSL=false&amp;serverTimezone=Europe/Paris?useSSL=false&amp;serverTimezone=Europe/Paris?useSSL=false&amp;serverTimezone=Europe/Paris?useSSL=false&amp;serverTimezone=Europe/Paris?useSSL=false&amp;serverTimezone=Europe/Paris</url>
       <remarks />
       <vm-options />
       <driver-info id="mysql5" />
