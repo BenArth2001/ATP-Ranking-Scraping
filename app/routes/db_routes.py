@@ -1,15 +1,23 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from cruds.scrape_cruds import scrape_cruds
+from cruds.db_cruds import db_cruds
 
 router = APIRouter()
 
-@router.get("/insert_datas_rank")
+@router.get("/insert_rank")
 def insert_datas_rank():
-    cruds_scrape = scrape_cruds()
+    cruds_db = db_cruds()
     try:
-        csv_file_path = cruds_scrape.get_datas_rank()
-        if "response" not in csv_file_path:
-            return FileResponse(path=csv_file_path, filename="rank.csv", media_type='text/csv')
+        insert_db = cruds_db.insert_datas_rank()
+        return {"message": insert_db}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Erreur lors de la récupération des classements des joueurs: {e}")
+        raise HTTPException(status_code=500, detail=f"Veuillez récupéré le classement avant de l'inserer en base de donnée: {e}")
+
+@router.post("/get_player_by_rank/{nb_rank}")
+def get_rank(nb_rank: int):
+    cruds_db = db_cruds()
+    try:
+        player_data = cruds_db.get_player_by_rank(nb_rank)
+        return {"message": player_data}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur lors de la récupération du joueurs par le classement: {e}")

@@ -1,0 +1,1 @@
+- data_out devrait etre au meme niveau que app/, mais comme docker run à partir de app/ je n'arrive pas a l'enregistrer au meme niveau que app

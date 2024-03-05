@@ -8,7 +8,7 @@ from utils.DfToCsv import DfToCsv
 
 
 class scrape_cruds:
-    """Classe pour les players."""
+    """Classe pour le scraping."""
 
     def scrape_atptour(self):
         """On se connecter au site."""
@@ -25,14 +25,13 @@ class scrape_cruds:
             return None 
 
         soup = BeautifulSoup(response.text, 'html.parser')
-        print(soup)
         return soup
     
     def get_datas_rank(self):
         """On récupere tous les rank scrapé."""
 
         datas_rank = []
-        print("Récupération des rank...")
+        print("Récupération du classement...")
         soup = self.scrape_atptour()
 
         if soup:
