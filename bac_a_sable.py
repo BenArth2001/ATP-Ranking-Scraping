@@ -1,3 +1,13 @@
+def scrape_and_save_to_csv():
+    ranks = scrape_atp_rankings()
+    with open('ranking.csv', 'w', encoding='utf-8', newline='') as csv_file:
+        writer = csv.writer(csv_file)
+        writer.writerow(['Rank', 'Name', 'Age', 'Points'])
+
+        for player in ranks:
+            writer.writerow([player['rank'], player['name'], player['age'], player['points']])
+
+
 from scraper import scrape_and_save_to_csv, get_player_by_rank
 from api import app
 
