@@ -8,7 +8,7 @@ router = APIRouter()
 def insert_datas_rank():
     cruds_db = db_cruds()
     try:
-        insert_db = cruds_db.insert_datas_rank()
+        insert_db = cruds_db.save_datas_rank_db()
         return {"message": insert_db}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Veuillez récupéré le classement avant de l'inserer en base de donnée: {e}")

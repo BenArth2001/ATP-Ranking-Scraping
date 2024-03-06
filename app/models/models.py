@@ -1,17 +1,22 @@
-from sqlalchemy import Column, Integer, String, DateTime, Boolean, Float, ForeignKey
+from sqlalchemy import create_engine, Column, ForeignKey, Integer, String, Date, JSON
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
-from database.db import Base
+from sqlalchemy.orm import relationship, sessionmaker
+from datetime import datetime
 
-# Ce fichier contient les classes SQLAlchemy qui 
-# définissent vos tables. Chaque classe hérite de Base et 
-# correspond à une table dans votre base de données. 
+Base = declarative_base()
 
-class Rank(Base):
-    __tablename__ = 'rank'
+class Player(Base):
+    __tablename__ = 'players'
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(75), unique=True, nullable=False, index=True)
     age = Column(Integer, nullable=False)
-    rank = Column(Integer, nullable=False)
-    points = Column(Float, nullable=False)
+    ranking_id = Column(Integer, ForeignKey('rankings.id'))
+
+class Ranking(Base):
+    __tablename__ = 'rankings'
+
+    id = Column(Integer, primary_key=True, index=True)
+    date_trait = Column(Date, default=datetime.utcnow().date())
+    rank_details = Column(JSON, nullable=False)
+
