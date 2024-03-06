@@ -2,6 +2,8 @@ from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 from requests.exceptions import RequestException
 from database.db import SessionLocal
 from models.models import Ranking, Player
+from datetime import date
+import datetime 
 import pandas as pd
 from bs4 import BeautifulSoup
 from utils.DfToCsv import DfToCsv
@@ -33,6 +35,11 @@ class db_cruds:
             # liste qui va contenir notre classement qu'on enregistrera dans un json
             rank_details = []
             try:
+                # Verif si il y a deja eu une sauvegarde du classement pour la date actuelle
+                existing_ranking = db.query(Ranking).filter_by(date_trait=date.today()).first()
+                if existing_ranking is not None:
+                    print("Un classement pour la date actuelle existe déjà.")
+                    return "Un classement pour la date actuelle existe déjà."
                 for row in reader:
                     player = db.query(Player).filter(Player.name == row[1]).first()
                     if not player:
@@ -58,7 +65,7 @@ class db_cruds:
                 return None
             finally:
                 db.close()
-                
+
         msg = "Les données ont été insérées avec succès."
         print(msg)
         return msg
@@ -68,9 +75,21 @@ class db_cruds:
         """On récupère les joueurs par rank."""
         db = SessionLocal()
         try:
-            players = db.query(Rank).filter(Rank.rank == nb_rank).all()
-            db.close()
-            return players
+            last_ranking = db.query(Ranking).order_by(Ranking.date_trait.desc()).first()
+            if last_ranking is None:
+                print("Aucun classement n'a été trouvé.")
+                return None
+            for rank_entry in last_ranking.rank_details:
+                if rank_entry["Classement"] == nb_rank:
+                    player_info = db.query(Player).filter(Player.id == rank_entry["id_p"]).first()
+                    if player_info:
+                        return {
+                            "Classement": rank_entry["Classement"],
+                            "Nom": player_info.name,
+                            "Age": player_info.age,
+                            "Points": rank_entry["Points"]
+                        }
+            return player_info
         except SQLAlchemyError as e:
             db.rollback()
             print(f"Erreur lors de la récupération du joueur par rank: {e}")
@@ -78,4 +97,6 @@ class db_cruds:
         except Exception as e:
             print(f"Erreur inattendue: {e}")
             return None
+        finally:
+            db.close()
      

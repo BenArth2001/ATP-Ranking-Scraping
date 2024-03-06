@@ -11,4 +11,4 @@ Base.metadata.create_all(bind=engine)
 
 app.include_router(scrape_routes.router, prefix="/scrape", tags=["scrape"])
 app.include_router(db_routes.router, prefix="/database", tags=["database"])
-app.include_router(db_routes.router, prefix="/indicateur", tags=["indicateur"])
+app.include_router(indicateur_routes.router, prefix="/indicateur", tags=["indicateur"])

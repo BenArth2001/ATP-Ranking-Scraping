@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine, Column, ForeignKey, Integer, String, Date, JSON
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
-from datetime import datetime
+from datetime import date
 
 Base = declarative_base()
 
@@ -17,6 +17,6 @@ class Ranking(Base):
     __tablename__ = 'rankings'
 
     id = Column(Integer, primary_key=True, index=True)
-    date_trait = Column(Date, default=datetime.utcnow().date())
+    date_trait = Column(Date, default=date.today())
     rank_details = Column(JSON, nullable=False)
 
