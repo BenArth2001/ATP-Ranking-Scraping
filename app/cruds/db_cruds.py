@@ -2,6 +2,7 @@ from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 from requests.exceptions import RequestException
 from database.db import SessionLocal
 from models.models import Ranking, Player
+from sqlalchemy import func
 from datetime import date
 import datetime 
 import pandas as pd
@@ -100,3 +101,4 @@ class db_cruds:
         finally:
             db.close()
      
+    

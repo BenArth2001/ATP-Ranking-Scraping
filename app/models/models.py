@@ -1,6 +1,5 @@
 from sqlalchemy import create_engine, Column, ForeignKey, Integer, String, Date, JSON
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship, sessionmaker
 from datetime import date
 
 Base = declarative_base()
